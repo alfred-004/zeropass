@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator, ScrollView } from 'react-native';
-import { useRouter, useLocalSearchParams } from 'expo-router';
-import { CircleCheck as CheckCircle } from 'lucide-react-native';
-import apiService, { EnrollmentPayload } from '@/services/apiService';
+import { useState, useEffect } from "react";
+import { View, Text, StyleSheet, ActivityIndicator, ScrollView } from "react-native";
+import { useRouter, useLocalSearchParams } from "expo-router";
+import { CircleCheck as CheckCircle } from "lucide-react-native";
+import apiService, { EnrollmentPayload } from "@/services/apiService";
 
 export default function EnrollmentCompleteScreen() {
   const router = useRouter();
@@ -32,10 +32,7 @@ export default function EnrollmentCompleteScreen() {
         },
       };
 
-      // Save to state for UI display
       setSubmittedPayload(payload);
-
-      // 👇 Log to console for debugging
       console.log("📦 Enrollment Payload:", JSON.stringify(payload, null, 2));
 
       const result = await apiService.sendTrainingData(payload);
@@ -43,14 +40,14 @@ export default function EnrollmentCompleteScreen() {
       if (result) {
         setSuccess(true);
         setTimeout(() => {
-          router.replace('/authenticated');
+          router.replace("/authenticated");
         }, 3000);
       } else {
-        setError('Failed to submit enrollment data');
+        setError("Failed to submit enrollment data");
       }
     } catch (err) {
       console.error("❌ Enrollment Error:", err);
-      setError('An error occurred during enrollment submission');
+      setError("An error occurred during enrollment submission");
     } finally {
       setIsSubmitting(false);
     }
@@ -70,11 +67,8 @@ export default function EnrollmentCompleteScreen() {
           <Text style={styles.successSubtitle}>
             Your behavioral profile has been created
           </Text>
-          <Text style={styles.redirectText}>
-            Redirecting to authenticated mode...
-          </Text>
+          <Text style={styles.redirectText}>Redirecting to authenticated mode...</Text>
 
-          {/* Show the payload in a scrollable view */}
           {submittedPayload && (
             <ScrollView style={styles.payloadBox}>
               <Text style={styles.payloadTitle}>Submitted Payload:</Text>
@@ -88,7 +82,6 @@ export default function EnrollmentCompleteScreen() {
         <>
           <Text style={styles.errorTitle}>Enrollment Failed</Text>
           <Text style={styles.errorText}>{error}</Text>
-
           {submittedPayload && (
             <ScrollView style={styles.payloadBox}>
               <Text style={styles.payloadTitle}>Payload (Not Sent):</Text>
@@ -106,61 +99,61 @@ export default function EnrollmentCompleteScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#f5f5f5",
+    justifyContent: "center",
+    alignItems: "center",
     padding: 20,
   },
   loadingText: {
     fontSize: 18,
-    color: '#666',
+    color: "#666",
     marginTop: 24,
   },
   successTitle: {
     fontSize: 28,
-    fontWeight: '700',
-    color: '#1a1a1a',
+    fontWeight: "700",
+    color: "#1a1a1a",
     marginTop: 24,
     marginBottom: 12,
   },
   successSubtitle: {
     fontSize: 16,
-    color: '#666',
-    textAlign: 'center',
+    color: "#666",
+    textAlign: "center",
     marginBottom: 24,
   },
   redirectText: {
     fontSize: 14,
-    color: '#999',
-    fontStyle: 'italic',
+    color: "#999",
+    fontStyle: "italic",
   },
   errorTitle: {
     fontSize: 28,
-    fontWeight: '700',
-    color: '#FF3B30',
+    fontWeight: "700",
+    color: "#FF3B30",
     marginBottom: 12,
   },
   errorText: {
     fontSize: 16,
-    color: '#666',
-    textAlign: 'center',
+    color: "#666",
+    textAlign: "center",
   },
   payloadBox: {
     marginTop: 20,
     maxHeight: 250,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     padding: 12,
     borderRadius: 10,
-    width: '100%',
+    width: "100%",
   },
   payloadTitle: {
-    fontWeight: '700',
+    fontWeight: "700",
     fontSize: 16,
     marginBottom: 8,
   },
   payloadText: {
-    fontFamily: 'monospace',
+    fontFamily: "monospace",
     fontSize: 12,
-    color: '#333',
+    color: "#333",
   },
 });
